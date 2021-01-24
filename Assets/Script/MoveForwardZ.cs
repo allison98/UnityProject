@@ -15,7 +15,20 @@ public class MoveForwardZ : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(-Vector3.forward * Time.deltaTime * speed);
+        transform.Translate( new Vector3(0,0,1) * Time.deltaTime * speed);
  
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Sensor"))
+        {
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.CompareTag("Flower"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

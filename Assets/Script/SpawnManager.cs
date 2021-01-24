@@ -5,8 +5,8 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public int min = 0;
-    public int max = 10;
-    public GameObject flower;
+    public int max = 40;
+    public List<GameObject> flower;
     public List<GameObject> enemy;
 
     private float spaceBetweenSquares = 2.5f;
@@ -21,7 +21,9 @@ public class SpawnManager : MonoBehaviour
         int numberOfFlowers = Random.Range(min, max);
         for (int i = 0; i<max; i++)
         {
-            Instantiate(flower, RandomSpawnPosition(), flower.transform.rotation);
+            int randomInt = Random.Range(0, 3);
+        
+            Instantiate(flower[randomInt], RandomSpawnPosition(), flower[randomInt].transform.rotation);
         }
 
         InvokeRepeating("spawnEnemies", 2, 3);
@@ -56,13 +58,13 @@ public class SpawnManager : MonoBehaviour
 
         if (direction == 0)
         {
-            Vector3 spawnPosition = new Vector3(-23f, 1.4f, spawnPos);
+            Vector3 spawnPosition = new Vector3(-23f, 0.1f, spawnPos);
             return spawnPosition;
 
         }
         else
         {
-            Vector3 spawnPosition = new Vector3(spawnPos, 1.4f, 23);
+            Vector3 spawnPosition = new Vector3(spawnPos, 0.1f, 23);
             return spawnPosition;
 
         }
