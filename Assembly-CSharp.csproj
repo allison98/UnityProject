@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ModTheCube\Cube.cs" />
+    <Compile Include="Assets\Script\CameraController.cs" />
     <Compile Include="Assets\Script\FlowerController.cs" />
     <Compile Include="Assets\Script\MoveForwardX.cs" />
     <Compile Include="Assets\Script\MoveForwardZ.cs" />

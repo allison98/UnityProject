@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour
             Instantiate(flower[randomInt], RandomSpawnPosition(), flower[randomInt].transform.rotation);
         }
 
-        InvokeRepeating("spawnEnemies", 2, 3);
+        InvokeRepeating("spawnEnemies", 2, 5);
     }
 
     // Update is called once per frame
