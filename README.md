@@ -9,12 +9,16 @@ The idea so far is a game where the main character is to collect *flowers*. I wa
 - [x] player control
 - [x] flower and rabbit spawning
 - [x] flower death by rabbit
-- [] update player physics and interactions with other objects
-    - [] what happens to flowers when player passes through
-    - [] player picking up flowers
-- [] animation for flower growing and dying
-- [] user gui for collection of flowers
-- [] refactoring
+- [ ] update player physics and interactions with other objects
+    - [ ] what happens to flowers when player passes through
+    - [ ] player picking up flowers
+- [ ] animation for flower growing and dying
+- [ ] user gui for collection of flowers
+- [ ] refactoring
+- [ ] graphics
+- [ ] surrounding environment
+- [ ] gameplay
+    - [ ] player defense, attack, etc
 
 
 ![Screenshot](ScreenCaps/PlayerControl.png)
