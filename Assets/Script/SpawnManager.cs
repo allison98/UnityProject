@@ -19,14 +19,13 @@ public class SpawnManager : MonoBehaviour
 
     {
         int numberOfFlowers = Random.Range(min, max);
-        for (int i = 0; i<max; i++)
+        for (int i = 0; i < max; i++)
         {
-            int randomInt = Random.Range(0, 3);
-        
-            Instantiate(flower[randomInt], RandomSpawnPosition(), flower[randomInt].transform.rotation);
+            spawnFlowers();
         }
 
-        InvokeRepeating("spawnEnemies", 2, 5);
+        //InvokeRepeating("spawnEnemies", 2, 5);
+        InvokeRepeating("spawnFlowersRandom", 5, 2);
     }
 
     // Update is called once per frame
@@ -41,14 +40,51 @@ public class SpawnManager : MonoBehaviour
         Instantiate(enemy[randomInt], RandomEnemyPosition(randomInt), enemy[randomInt].transform.rotation);
     }
 
-    // Spawn in random Location
-    Vector3 RandomSpawnPosition()
+    void spawnFlowersRandom()
     {
-        float spawnPosX = minValueX + (RandomSquareIndex(-6.0f, 6.0f) * spaceBetweenSquares);
-        float spawnPosZ = minValueZ + (RandomSquareIndex(-6.0f, 6.0f) * spaceBetweenSquares);
+        int randomInt = Random.Range(0, 10);
+        if (randomInt % 2 == 0)
+        {
+            spawnFlowers();
+        }
+    }
 
-        Vector3 spawnPosition = new Vector3(spawnPosX, 0.8f, spawnPosZ);
-        return spawnPosition;
+    // Spawn in random Location checking for colliision
+    void spawnFlowers()
+    {
+        bool validPosition = false;
+        Vector3 spawnPosition = Vector3.zero;
+        int maxTries = 10;
+        int spawnTries = 0;
+        int randomInt = Random.Range(0, 3);
+
+
+        while (!validPosition | spawnTries > maxTries)
+        {
+            spawnTries = spawnTries + 1;
+            float spawnPosX = minValueX + (RandomSquareIndex(-6.0f, 6.0f) * spaceBetweenSquares);
+            float spawnPosZ = minValueZ + (RandomSquareIndex(-6.0f, 6.0f) * spaceBetweenSquares);
+
+            spawnPosition = new Vector3(spawnPosX, 0.8f, spawnPosZ);
+
+            Collider[] colliders = Physics.OverlapSphere(spawnPosition, 0.3f);
+            
+            if (colliders.Length == 0)
+            {
+                validPosition = true;
+            }
+        }
+
+        if (spawnTries > maxTries)
+        {
+            print("max");
+            print(spawnTries);
+        }
+
+        if (validPosition)
+        {
+            Instantiate(flower[randomInt], spawnPosition, flower[randomInt].transform.rotation);
+        }
 
     }
 

@@ -23,11 +23,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float minDistance = 100;
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * forwardSpeed);
-        transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * rotateSpeed);
+
 
         if (verticalInput == 0)
         {
@@ -39,14 +39,51 @@ public class PlayerController : MonoBehaviour
             anim.SetFloat("Speed_f", 3.0f);
         }
 
+        anim.SetBool("Crouch_b", false);
+
+
+        // Jump command
         if (Input.GetKeyDown(KeyCode.Space) && isGround)
         {
             playerRb.AddForce(Vector3.up * jumpForce * forwardSpeed, ForceMode.Impulse);
             isGround = false;
             anim.SetTrigger("Jump_trig");
-            //anim.SetBool("Jump_b", true);
         }
-        //anim.SetBool("Jump_b", false);
+
+        // Pick up Command
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            GameObject closestObject = gameObject;
+            bool flowerIsClose = false;
+
+            // Find nearest flower tag in radius of player and destroy flower object
+            anim.SetBool("Crouch_b", true);
+            // Find colliders near my
+            Collider[] colliders = Physics.OverlapSphere(gameObject.transform.position, 3f);
+            foreach (Collider flower in colliders) {
+                if (flower.gameObject.tag == "Flower")
+                {
+                    float currentDistance = Vector3.Distance(gameObject.transform.position, flower.gameObject.transform.position);
+                    if (currentDistance < minDistance)
+                    {
+                        minDistance = currentDistance;
+                        closestObject = flower.gameObject;
+                        flowerIsClose = true;
+                    }
+                }
+            }
+
+            if (flowerIsClose)
+            {
+                Destroy(closestObject);
+            }
+        }
+
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch_Down") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch_Idle") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Crouch_Up"))
+        {
+            transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * forwardSpeed);
+            transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * rotateSpeed);
+        }
 
     }
     private void OnCollisionEnter(Collision collision)
@@ -57,11 +94,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Flower"))
-        {
-            Destroy(other.gameObject);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Flower"))
+    //    {
+    //        Destroy(other.gameObject);
+    //    }
+    //}
 }

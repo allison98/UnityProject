@@ -8,10 +8,12 @@ The idea so far is a game where the main character is to collect *flowers*. I wa
 - [x] camera control
 - [x] player control
 - [x] flower and rabbit spawning
+- [x] flower contiously spawns randomly, and now they won't spawn on top of each other
 - [x] flower death by rabbit
 - [ ] update player physics and interactions with other objects
     - [ ] what happens to flowers when player passes through
-    - [ ] player picking up flowers
+    - [x] player picking up flowers
+    - [ ] animation of flower picking
 - [ ] animation for flower growing and dying
 - [ ] user gui for collection of flowers
 - [ ] refactoring
@@ -22,6 +24,8 @@ The idea so far is a game where the main character is to collect *flowers*. I wa
 
 
 ![Screenshot](ScreenCaps/PlayerControl.png)
+Player crouching to pick up a flower
+![Screenshot](ScreenCaps/PlayerCrouch.png)
 
 ## Assets being used
 - [Rabbits](https://assetstore.unity.com/packages/3d/characters/creatures/level-1-monster-pack-77703)
